@@ -42,7 +42,7 @@ export interface Releaser {
     repo: string;
     release_id: number;
     tag_name: string;
-    target_commitish: string;
+    target_commitish?: string;
     name: string;
     body: string | undefined;
     draft: boolean | undefined;
@@ -86,7 +86,7 @@ export class GitHubReleaser implements Releaser {
     repo: string;
     release_id: number;
     tag_name: string;
-    target_commitish: string;
+    target_commitish?: string;
     name: string;
     body: string | undefined;
     draft: boolean | undefined;
@@ -165,7 +165,6 @@ export const release = async (
     });
 
     const release_id = existingRelease.data.id;
-    const target_commitish = existingRelease.data.target_commitish;
     const tag_name = tag;
     const name = config.input_name || tag;
     const body = `${existingRelease.data.body}\n${releaseBody(config)}`;
@@ -177,7 +176,6 @@ export const release = async (
       repo,
       release_id,
       tag_name,
-      target_commitish,
       name,
       body,
       draft,
